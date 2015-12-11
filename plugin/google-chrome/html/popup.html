@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Wikia Assistant</title>
+	<link href="../css/main.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="main">
+		<dl>
+			<dt>[ Wikia Assistant ]</dt>
+			<dd>
+				<input id="query" type="text" placeholder="Search..." />
+				<button id="search-button">Search</button>
+				<img id="settings-button" src="../img/gear.png" width="24" width="24" /></dd>
+		</dl>
+		<div id="results-placeholder">
+			<span id="error"></span>
+			<img id="wikia-logo" src="../img/wikia.jpg" width="300" height="200" />
+			<div id="loader">
+				<img src="../img/loader.gif" />
+			</div>
+		</div>
+		<div id="results"></div>
+	</div>
+	<script src="../lib/main.js"></script>
+</body>
+</html>
