@@ -1,0 +1,12 @@
+{
+  "name": "wikia-assistant",
+  "version": "0.0.1",
+  "homepage": "http://lukaszewski.it/",
+  "authors": [
+    "Andrzej 'nAndy' Łukaszewski"
+  ],
+  "description": "Google Chrome extension which makes it easier to use Wikia data.",
+  "devDependencies": {
+    "qunit": "~1.17.1"
+  }
+}
