@@ -4,7 +4,8 @@ var resultsPlaceholderContainer = document.getElementById('results-placeholder')
 	loader = document.getElementById('loader'),
 	error = document.getElementById('error'),
 	resultsPlaceholder = document.getElementById('results-placeholder'),
-	resultsContainer = document.getElementById('results');
+	resultsContainer = document.getElementById('results'),
+	settingsButton = document.getElementById('settings-button');
 
 function show(element) {
 	element.style.display = 'block';
@@ -111,3 +112,12 @@ queryInput.addEventListener('keyup', function(e) {
 searchButton.addEventListener('click', function() {
 	doSearch();
 }, false);
+
+settingsButton.addEventListener('click', function () {
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage();
+  } else {
+    window.open(chrome.runtime.getURL('options.html'));
+  }
+});
+

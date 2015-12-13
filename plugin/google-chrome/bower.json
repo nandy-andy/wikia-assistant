@@ -8,5 +8,9 @@
   "description": "Google Chrome extension which makes it easier to use Wikia data.",
   "devDependencies": {
     "qunit": "~1.17.1"
+  },
+  "dependencies": {
+    "require": "http://requirejs.org/docs/release/2.1.22/minified/require.js",
+    "mustache.js": "git@github.com:janl/mustache.js.git#~2.2.0"
   }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Wikia Assistant - settings</title>
+  <link href="../css/main.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="options">
+    <section>
+      <h3>Searching options</h3>
+      <p>
+        <input type="radio" name="search-opts" id="search-opts-wikias" />Search for wikias
+      </p>
+      <p>
+        <input type="radio" name="search-opts" id="search-opts-cross-wikia" />Search articles across Wikia
+      </p>
+      <p>
+        <input type="radio" name="search-opts" id="search-opts-articles" />Search articles on my favorite wikias
+      </p>
+    </section>
+    <section>
+      <h3>Your wikias options</h3>
+      <p>
+        <input type="radio" name="first-view-opts" id="first-view-opts-recent-changes" />Show recent changes
+      </p>
+      <p>
+        <input type="radio" name="first-view-opts" id="first-view-opts-curated-content" />Show curated content
+      </p>
+    </section>
+    <section id="status"></section>
+    <button id="save">Save</button>
+  </div>
+  <script src="../bower_components/require/index.js"></script>
+  <script src="../lib/optionsStatusBar.js"></script>
+  <script src="../lib/settings.js"></script>
+  <script src="../lib/options.js"></script>
+</body>
+</html>

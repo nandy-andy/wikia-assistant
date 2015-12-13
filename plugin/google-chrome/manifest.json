@@ -3,15 +3,20 @@
   "name": "Wikia Assistant Extension",
   "description": "This extension makes it easier to use Wikia",
   "version": "0.0.1",
-  "minimum_chrome_version": "43",
+  "minimum_chrome_version": "40",
   "browser_action": {
     "default_icon": "icons/icon.png",
     "default_title": "Wikia Assistant",
     "default_popup": "html/popup.html"
   },
+  "options_ui": {
+    "page": "html/options.html",
+    "chrome_style": true
+  },
   "permissions": [
     "http://www.wikia.com/",
-    "tabs"
+    "tabs",
+    "storage"
   ],
   "icons": {
     "16": "icons/icon-16.png",
