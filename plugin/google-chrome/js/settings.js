@@ -4,8 +4,10 @@ define('wikia.assistant.settings', [], function() {
         searchOption: 'search-opts-wikias',
         firstViewOption: 'first-view-opts-recent-changes'
       },
+      usersWikias = [],
       searchOptions = ['search-opts-wikias', 'search-opts-articles'],
-      firstViewOptions = ['first-view-opts-recent-changes', 'first-view-opts-curated-content'];
+      firstViewOptions = ['first-view-opts-recent-changes', 'first-view-opts-curated-content'],
+      WIKIA_URL_REGEXP_PATTERN = ".*\.wikia\.com(|\/.*)";
 
   function getOptions() {
     return options;
@@ -13,6 +15,22 @@ define('wikia.assistant.settings', [], function() {
 
   function setOption(name, value) {
     options[name] = value;
+  }
+
+  function getUserWikias() {
+    return usersWikias;
+  }
+
+  function addUserWikia(wikiaUrl) {
+    var url = new URL(wikiaUrl).hostname;
+
+    if(
+        url !== ''
+        && url.match(WIKIA_URL_REGEXP_PATTERN)
+        && usersWikias.indexOf(url) === -1
+    ) {
+      usersWikias.push(url);
+    }
   }
 
   function save(callback) {
@@ -24,6 +42,8 @@ define('wikia.assistant.settings', [], function() {
   }
 
   return {
+    addUserWikia: addUserWikia,
+    getUserWikias: getUserWikias,
     getOptions: getOptions,
     setOption: setOption,
     save: save,

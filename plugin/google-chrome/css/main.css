@@ -59,7 +59,7 @@
 	min-width: 280px;
 }
 
-#results ul {
+#results ul, #favWikias {
 	list-style-type: none;
 	padding: 0 0 15px 0;
 }
