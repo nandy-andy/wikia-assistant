@@ -91,7 +91,7 @@ define('wikia.assistant.search', ['wikia.assistant.settings'], function(settings
 				emptyResponses = false;
 
 				Object.keys(responses[i]).forEach(function (j) {
-					output += '<li><a href="http://' + responses[i][j].url + '">' + responses[i][j].title + '</a></li>';
+					output += '<li><a href="' + responses[i][j].url + '">' + responses[i][j].title + '</a></li>';
 				});
 			}
 		});
