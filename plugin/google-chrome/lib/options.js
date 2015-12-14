@@ -19,11 +19,16 @@ require([
   });
 
   document.getElementById('save').addEventListener('click', function () {
-    settings.setOption('searchOption', 'search-opts-articles');
+    var checkedElemenets = document.querySelectorAll("input:checked"),
+        countOfCheckedElemenets = checkedElemenets.length;
+
+    for(var i = 0; i < countOfCheckedElemenets; i++) {
+      var element = checkedElemenets.item(i);
+      settings.setOption(element.name, element.id);
+    }
 
     settings.save(function() {
       console.log('Saved.');
-      console.log(settings.getOptions());
     });
 
     console.log('Saving...');
