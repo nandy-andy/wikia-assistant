@@ -2,8 +2,7 @@ define('wikia.assistant.search', ['wikia.assistant.settings'], function(settings
 	var loader = document.getElementById('loader'),
 		error = document.getElementById('error'),
 		resultsPlaceholder = document.getElementById('results-placeholder'),
-		resultsContainer = document.getElementById('results'),
-		userWikia = 'batman.wikia.com';
+		resultsContainer = document.getElementById('results');
 
 	function showError(errorMessage) {
 		hide(resultsContainer);
@@ -81,16 +80,25 @@ define('wikia.assistant.search', ['wikia.assistant.settings'], function(settings
 		});
 	}
 
-	function generateArticlesResponse(response) {
-		var output;
+	function generateArticlesResponse(responses) {
+		var output = '<ul>',
+			emptyResponses = false;
 
-		if (response.length === 0) {
+		Object.keys(responses).forEach(function(i) {
+			if (responses[i].length === 0) {
+				emptyResponses = true;
+			} else {
+				emptyResponses = false;
+
+				Object.keys(responses[i]).forEach(function (j) {
+					output += '<li><a href="http://' + responses[i][j].url + '">' + responses[i][j].title + '</a></li>';
+				});
+			}
+		});
+
+		if(emptyResponses) {
 			output = 'There are no results for your search phrase.';
 		} else {
-			output = '<ul>';
-			Object.keys(response).forEach(function (i) {
-				output += '<li><a href="http://' + response[i].url + '">' + response[i].title + '</a></li>';
-			});
 			output += '</ul>';
 		}
 
@@ -106,19 +114,34 @@ define('wikia.assistant.search', ['wikia.assistant.settings'], function(settings
 	}
 
 	function searchWikia(query) {
+		var responses = [];
+
 		changeUiToWaitState();
 
-		getUrl(
-			'http://' + userWikia + '/wiki/Special:Search?search=' + query + '&fulltext=Search&format=json',
-			function (response) {
-				generateArticlesResponse(response);
-				changeUiToReadyState();
-			},
-			function () {
-				showError('Connection error with API occurred. Please try again later.');
+		settings.restore(function (items) {
+			if(items.userWikias) {
+				Object.keys(items.userWikias).forEach(function(i) {
+					getUrl(
+						'http://' + items.userWikias[i] + '/wiki/Special:Search?search=' + query + '&fulltext=Search&format=json',
+						function (response) {
+							responses.push(response);
+
+							if(responses.length === items.userWikias.length) {
+								generateArticlesResponse(responses);
+								changeUiToReadyState();
+							}
+						},
+						function () {
+							showError('Connection error with API occurred. Please try again later.');
+							hide(loader);
+						}
+					);
+				});
+			} else {
+				showError('We could not get your favorite wikias. Open one in another tab and go to options of this extension.');
 				hide(loader);
 			}
-		);
+		});
 	}
 
 	function search(query) {
