@@ -2,7 +2,8 @@ define('wikia.assistant.settings', [], function() {
   var options = {},
       defaultOptions = {
         searchOption: 'search-opts-wikias',
-        firstViewOption: 'first-view-opts-recent-changes'
+        firstViewOption: 'first-view-opts-recent-changes',
+        userWikias: []
       },
       usersWikias = [],
       searchOptions = ['search-opts-wikias', 'search-opts-articles'],

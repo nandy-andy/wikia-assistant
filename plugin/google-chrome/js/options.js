@@ -31,38 +31,52 @@ require([
           settings.addUserWikia(tabs[tabId].url);
         }
       });
-
-      userWikias.getWikiasFromHistory(function(historyItems) {
-        if(historyItems && historyItems.length) {
-          Object.keys(historyItems).forEach(function (id) {
-            if(historyItems[id].url) {
-              settings.addUserWikia(historyItems[id].url);
-            }
-          });
-
-          userWikiasUrls = settings.getUserWikias();
-          output = '';
-          Object.keys(userWikiasUrls).forEach(function (id) {
-            output += '<li><input name="wikiaUrl" class="user-wikia-url" type="checkbox" /> ' + userWikiasUrls[id] + '</li>';
-          });
-          document.getElementById('favWikias').innerHTML = output;
-        } else {
-          console.log('No wikias found in opened tabs.');
-        }
-      });
-
     } else {
       console.log('No wikias found in opened tabs.');
     }
+
+    userWikias.getWikiasFromHistory(function(historyItems) {
+      var userSettingsWikis = settings.getOptions().userWikias;
+
+      if(historyItems && historyItems.length) {
+        Object.keys(historyItems).forEach(function (id) {
+          if(historyItems[id].url) {
+            settings.addUserWikia(historyItems[id].url);
+          }
+        });
+
+        userWikiasUrls = settings.getUserWikias();
+        output = '';
+        Object.keys(userWikiasUrls).forEach(function (id) {
+          output += '<li><input name="wikiaUrl" class="user-wikia-url" type="checkbox" data-wikia-url="' + userWikiasUrls[id] + '" /> ' + userWikiasUrls[id] + '</li>';
+        });
+        document.getElementById('favWikias').innerHTML = output;
+
+        Object.keys(userSettingsWikis).forEach(function(id) {
+          document.querySelector('input[data-wikia-url="' + userSettingsWikis[id] + '"]').checked = "checked";
+        });
+
+      } else {
+        console.log('No wikias found in opened tabs.');
+      }
+    });
   });
 
   document.getElementById('save').addEventListener('click', function () {
     var checkedElemenets = document.querySelectorAll("input:checked"),
-        countOfCheckedElemenets = checkedElemenets.length;
+        countOfCheckedElemenets = checkedElemenets.length,
+        userWikias = [];
 
     for(var i = 0; i < countOfCheckedElemenets; i++) {
       var element = checkedElemenets.item(i);
-      settings.setOption(element.name, element.id);
+
+      if(element.classList.contains('user-wikia-url')) {
+        userWikias.push(element.dataset.valueOf('wikia-url').wikiaUrl);
+      } else {
+        settings.setOption(element.name, element.id);
+      }
+
+      settings.setOption('userWikias', userWikias);
     }
 
     settings.save(function() {
