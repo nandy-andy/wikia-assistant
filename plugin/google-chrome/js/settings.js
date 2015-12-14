@@ -4,7 +4,7 @@ define('wikia.assistant.settings', [], function() {
         searchOption: 'search-opts-wikias',
         firstViewOption: 'first-view-opts-recent-changes'
       },
-      searchOptions = ['search-opts-wikias', 'search-opts-cross-wikia', 'search-opts-articles'],
+      searchOptions = ['search-opts-wikias', 'search-opts-articles'],
       firstViewOptions = ['first-view-opts-recent-changes', 'first-view-opts-curated-content'];
 
   function getOptions() {

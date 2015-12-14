@@ -14,7 +14,7 @@
     "chrome_style": true
   },
   "permissions": [
-    "http://www.wikia.com/",
+    "http://*.wikia.com/",
     "tabs",
     "storage"
   ],
